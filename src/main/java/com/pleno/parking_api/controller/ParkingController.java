@@ -2,6 +2,7 @@ package com.pleno.parking_api.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +17,7 @@ import com.pleno.parking_api.domain.service.SpotService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("parking")
 @RequiredArgsConstructor
 public class ParkingController {

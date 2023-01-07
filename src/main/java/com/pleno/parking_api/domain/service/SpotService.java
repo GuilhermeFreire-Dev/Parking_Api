@@ -57,10 +57,10 @@ public class SpotService {
         Optional<Spot> spot = repository.findByPlateAndStatus(plate, Status.ACTIVE);
 
         if (spot.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Plate not registered!");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Veículo não registrado!");
         } else {
             if (spot.get().getStatus() == Status.DONE) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Spot already done!");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Check-Out já realizado!");
             }
         }
 
@@ -70,13 +70,13 @@ public class SpotService {
     private void existsByPlate(String plate) {
         List<Spot> spots = repository.findAllByPlate(plate);
         if (spots.stream().map(spot -> spot.getStatus() == Status.ACTIVE).count() > 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already in!");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Veículo já registrado!");
         }
     }
 
     private void hasSpot() {
         if (repository.findAllByStatus(Status.ACTIVE).size() >= Prefs.spots) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No free spots!");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Vagas indisponíveis no momento!");
         }
     }
 }
